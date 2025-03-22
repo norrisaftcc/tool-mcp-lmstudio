@@ -2,6 +2,8 @@
 
 A Model Control Protocol (MCP) server that allows Claude to communicate with locally running LLM models via LM Studio.
 
+<img width="1881" alt="Screenshot 2025-03-22 at 16 50 53" src="https://github.com/user-attachments/assets/c203513b-28db-4be5-8c61-ebb8a24404ce" />
+
 ## Overview
 
 LMStudio-MCP creates a bridge between Claude (with MCP capabilities) and your locally running LM Studio instance. This allows Claude to:
