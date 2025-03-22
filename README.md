@@ -33,18 +33,49 @@ This enables you to leverage your own locally running models through Claude's in
    pip install requests "mcp[cli]" openai
    ```
 
+## MCP Configuration
+
+For Claude to connect to this bridge, you need to configure the MCP settings properly. You can either:
+
+1. **Use directly from GitHub**:
+   ```json
+   {
+     "lmstudio-mcp": {
+       "command": "uvx",
+       "args": [
+         "https://github.com/infinitimeless/LMStudio-MCP"
+       ]
+     }
+   }
+   ```
+
+2. **Use local installation**:
+   ```json
+   {
+     "lmstudio-mcp": {
+       "command": "/bin/bash",
+       "args": [
+         "-c",
+         "cd /path/to/LMStudio-MCP && source venv/bin/activate && python lmstudio_bridge.py"
+       ]
+     }
+   }
+   ```
+
+For detailed MCP configuration instructions, see [MCP_CONFIGURATION.md](MCP_CONFIGURATION.md).
+
 ## Usage
 
 1. Start your LM Studio application and ensure it's running on port 1234 (the default)
 
 2. Load a model in LM Studio
 
-3. Run the LMStudio-MCP server:
+3. If running locally (not using `uvx`), run the LMStudio-MCP server:
    ```bash
    python lmstudio_bridge.py
    ```
 
-4. In Claude, load the MCP server when prompted
+4. In Claude, connect to the MCP server when prompted by selecting "lmstudio-mcp"
 
 ## Available Functions
 
@@ -77,6 +108,8 @@ If certain models don't work correctly:
 - Some models might not fully support the OpenAI chat completions API format
 - Try different parameter values (temperature, max_tokens) for problematic models
 - Consider switching to a more compatible model if problems persist
+
+For more detailed troubleshooting help, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 ## License
 
