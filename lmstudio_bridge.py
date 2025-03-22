@@ -147,7 +147,11 @@ async def chat_completion(prompt: str, system_prompt: str = "", temperature: flo
         log_error(f"Error in chat_completion: {str(e)}")
         return f"Error generating completion: {str(e)}"
 
-if __name__ == "__main__":
-    # Initialize and run the server
+def main():
+    """Entry point for the package when installed via pip"""
     log_info("Starting LM Studio Bridge MCP Server")
     mcp.run(transport='stdio')
+
+if __name__ == "__main__":
+    # Initialize and run the server
+    main()
