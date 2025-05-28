@@ -22,62 +22,96 @@ This enables you to leverage your own locally running models through Claude's in
 - Claude with MCP access
 - Required Python packages (see Installation)
 
-## Installation
+## 🚀 Quick Installation
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/infinitimeless/LMStudio-MCP.git
-   cd LMStudio-MCP
-   ```
+### One-Line Install (Recommended)
+```bash
+curl -fsSL https://raw.githubusercontent.com/infinitimeless/LMStudio-MCP/main/install.sh | bash
+```
 
-2. Install the required packages:
-   ```bash
-   pip install requests "mcp[cli]" openai
-   ```
+### Manual Installation Methods
+
+#### 1. Local Python Installation
+```bash
+git clone https://github.com/infinitimeless/LMStudio-MCP.git
+cd LMStudio-MCP
+pip install requests "mcp[cli]" openai
+```
+
+#### 2. Docker Installation
+```bash
+# Using pre-built image
+docker run -it --network host ghcr.io/infinitimeless/lmstudio-mcp:latest
+
+# Or build locally
+git clone https://github.com/infinitimeless/LMStudio-MCP.git
+cd LMStudio-MCP
+docker build -t lmstudio-mcp .
+docker run -it --network host lmstudio-mcp
+```
+
+#### 3. Docker Compose
+```bash
+git clone https://github.com/infinitimeless/LMStudio-MCP.git
+cd LMStudio-MCP
+docker-compose up -d
+```
+
+For detailed deployment instructions, see [DOCKER.md](DOCKER.md).
 
 ## MCP Configuration
 
-For Claude to connect to this bridge, you need to configure the MCP settings properly. You can either:
+### Quick Setup
 
-1. **Use directly from GitHub**:
-   ```json
-   {
-     "lmstudio-mcp": {
-       "command": "uvx",
-       "args": [
-         "https://github.com/infinitimeless/LMStudio-MCP"
-       ]
-     }
-   }
-   ```
+**Using GitHub directly (simplest)**:
+```json
+{
+  "lmstudio-mcp": {
+    "command": "uvx",
+    "args": [
+      "https://github.com/infinitimeless/LMStudio-MCP"
+    ]
+  }
+}
+```
 
-2. **Use local installation**:
-   ```json
-   {
-     "lmstudio-mcp": {
-       "command": "/bin/bash",
-       "args": [
-         "-c",
-         "cd /path/to/LMStudio-MCP && source venv/bin/activate && python lmstudio_bridge.py"
-       ]
-     }
-   }
-   ```
+**Using local installation**:
+```json
+{
+  "lmstudio-mcp": {
+    "command": "/bin/bash",
+    "args": [
+      "-c",
+      "cd /path/to/LMStudio-MCP && source venv/bin/activate && python lmstudio_bridge.py"
+    ]
+  }
+}
+```
 
-For detailed MCP configuration instructions, see [MCP_CONFIGURATION.md](MCP_CONFIGURATION.md).
+**Using Docker**:
+```json
+{
+  "lmstudio-mcp-docker": {
+    "command": "docker",
+    "args": [
+      "run",
+      "-i",
+      "--rm",
+      "--network=host",
+      "ghcr.io/infinitimeless/lmstudio-mcp:latest"
+    ]
+  }
+}
+```
+
+For complete MCP configuration instructions, see [MCP_CONFIGURATION.md](MCP_CONFIGURATION.md).
 
 ## Usage
 
-1. Start your LM Studio application and ensure it's running on port 1234 (the default)
-
-2. Load a model in LM Studio
-
-3. If running locally (not using `uvx`), run the LMStudio-MCP server:
-   ```bash
-   python lmstudio_bridge.py
-   ```
-
-4. In Claude, connect to the MCP server when prompted by selecting "lmstudio-mcp"
+1. **Start LM Studio** and ensure it's running on port 1234 (the default)
+2. **Load a model** in LM Studio
+3. **Configure Claude MCP** with one of the configurations above
+4. **Connect to the MCP server** in Claude when prompted
 
 ## Available Functions
 
@@ -87,6 +121,18 @@ The bridge provides the following functions:
 - `list_models()`: Get a list of all available models in LM Studio
 - `get_current_model()`: Identify which model is currently loaded
 - `chat_completion(prompt, system_prompt, temperature, max_tokens)`: Generate text from your local model
+
+## Deployment Options
+
+This project supports multiple deployment methods:
+
+| Method | Use Case | Pros | Cons |
+|--------|----------|------|------|
+| **Local Python** | Development, simple setup | Fast, direct control | Requires Python setup |
+| **Docker** | Isolated environments | Clean, portable | Requires Docker |
+| **Docker Compose** | Production deployments | Easy management | More complex setup |
+| **Kubernetes** | Enterprise/scale | Highly scalable | Complex configuration |
+| **GitHub Direct** | Zero setup | No local install needed | Requires internet |
 
 ## Known Limitations
 
@@ -111,7 +157,23 @@ If certain models don't work correctly:
 - Try different parameter values (temperature, max_tokens) for problematic models
 - Consider switching to a more compatible model if problems persist
 
-For more detailed troubleshooting help, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+For detailed troubleshooting help, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+
+## 🐳 Docker & Containerization
+
+This project includes comprehensive Docker support:
+
+- **Multi-architecture images** (AMD64, ARM64/Apple Silicon)
+- **Automated builds** via GitHub Actions
+- **Pre-built images** available on GitHub Container Registry
+- **Docker Compose** for easy deployment
+- **Kubernetes manifests** for production deployments
+
+See [DOCKER.md](DOCKER.md) for complete containerization documentation.
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
@@ -120,3 +182,7 @@ MIT
 ## Acknowledgements
 
 This project was originally developed as "Claude-LMStudio-Bridge_V2" and has been renamed and open-sourced as "LMStudio-MCP".
+
+---
+
+**🌟 If this project helps you, please consider giving it a star!**
