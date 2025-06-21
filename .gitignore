@@ -102,3 +102,7 @@ venv.bak/
 
 # macOS
 .DS_Store
+
+# MCP configuration files (contain API keys)
+claude_mcp_config.json
+*mcp_config*.json
